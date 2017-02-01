@@ -18,8 +18,8 @@ public class ResolutionDAO implements DAO<Resolution> {
 	
 	@Override
 	public void save(Resolution r) {
-		String sql = "INSERT INTO RESOLUTIONS(ISSUE_ID,EMPLOYEE_ID,SOLUTION) VALUES(?,?,?)";
-		Object[] params = {r.getIssueId().getId(),r.getEmployeeId().getId(),r.getSolution()};
+		String sql = "INSERT INTO RESOLUTIONS(ISSUE_ID) VALUES(?)";
+		Object[] params = {r.getIssueId().getId()};
 		jdbctemplate.update(sql, params);
 	}
 
@@ -47,7 +47,7 @@ public class ResolutionDAO implements DAO<Resolution> {
 
 	@Override
 	public void delete(int id) {
-		String sql = "DELETE FROM RESOLUTIONS WHERE ID = ?";
+		String sql = "DELETE FROM RESOLUTIONS WHERE ISSUE_ID = ?";
 		Object[] params = {id};
 		jdbctemplate.update(sql,params);
 		

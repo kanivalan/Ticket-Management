@@ -1,0 +1,81 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<title>Registration</title>
+</head>
+<body>
+<nav class="navbar navbar navbar-fixed-top">
+<div class="container-fluid">
+<div class="navbar-header">
+
+     <div class="navbar-left">
+    <img src="img/TICKETLOGO.png" alt="" width="180" height="130" class="img-responsive"/> </div>
+
+    </nav>
+    <br><br><br><br><br>
+<form class="form-horizontal" action='/tickets/register' method="get">
+ 
+  <fieldset>
+    <div class=" col-lg-5"  style="border: 2px solid  #585757; box-shadow:0px 0px 5px #F5AA1D;; padding:20px 20px 20px 20px; overflow:hidden; margin-left:37%;">
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Username</label>
+      <div class="controls">
+        <input type="text" id="username" name="username" placeholder="Username can contain any letters or numbers, without spaces" class="input-xlarge col-lg-10">
+      </div>
+    </div>
+ <br><br>
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+        <p class="help-block">Password should be at least 4 characters</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password -->
+      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+      <div class="controls">
+        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+        <p class="help-block">Please confirm password</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-warning">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+<br><br><br>
+<footer>
+            <div class="col-md-12">
+                <p style="text-align: center">
+                    <font color="black"><b>Ticket Management</b>&copy;<script>document.write(new Date().getFullYear())</script> </font>
+                </p>
+
+            </div>
+       
+    
+</footer>
+</body>
+
+</html>

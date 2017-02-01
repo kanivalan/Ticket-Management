@@ -11,8 +11,9 @@ public class TestService {
 		TicketService testservice=new TicketService();
 	
 //		testservice.findUserDetails("", "");
-		testservice.createTicket("", "", "", "", "", "");
-
+//		testservice.createTicket("", "", "", "", "", "");
+//		testservice.assignTicketToEmployee("","",1,1 );
+		testservice.findUserDetails("kani.valanmail.com", "kani123");
 	}
 
 }

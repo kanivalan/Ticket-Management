@@ -44,12 +44,20 @@ public class CreateTicket {
 			issue.setSubject(subject);
 			issue.setDescription(description);
 			issue.setPriority(priority);
+			issue.setStatus("open");
 
 			issueDAO.save(issue);
-		} else {
-			System.out.println("Incorrect user name or password");
-		}
-
+			
+			
+			int issueId = issueDAO.findIssueId(userId, subject, description).getId();
+			Resolution solution = new Resolution();
+			ResolutionDAO resolutionDAO = new ResolutionDAO();
+	
+			
+			issue.setId(issueId);
+			solution.setIssueId(issue);
+			resolutionDAO.save(solution);
+		} 
 	}
 
     //update Ticket Method
@@ -68,7 +76,8 @@ public class CreateTicket {
 				"CLOSED".equals(issueDAO.findStatus(userId, issueId).getStatus())) {
 
 				System.out.println("You cant update now! because you closed your ticket");
-			} else {
+			} 
+			else {
 
 				issue.setUserId(user);
 				issue.setId(issueId);
@@ -156,15 +165,19 @@ public class CreateTicket {
 					Resolution resolution = new Resolution();
 					ResolutionDAO solutionDao = new ResolutionDAO();
 
+			
+					employee.setId(empId);
+					issue.setEmpId(employee);
+					
 					issue.setId(issueId);
 					resolution.setIssueId(issue);
-
+					
 					employee.setId(empId);
 					resolution.setEmployeeId(employee);
-
+					
 					solutionDao.updateEmployeeId(resolution);
-
-					issueDAO.updateStatus(issue);
+					
+					issueDAO.updateIssue(issue);
 				} else {
 					System.out.println("Department dosent match");
 				}
@@ -182,13 +195,22 @@ public class CreateTicket {
 		try {
 			if (loginDao.employeeLogin(emailId, password)) {
 				Resolution resolution = new Resolution();
+	
+				EmployeeDAO empDAO = new EmployeeDAO();
+				Employee emp = new Employee();
+				
+				int empId = empDAO.findEmployeeId(emailId, password).getId();
+				
 				ResolutionDAO resolutionDao = new ResolutionDAO();
 				
 				issue.setId(issueId);
 				resolution.setIssueId(issue);
+				emp.setId(empId);
+				resolution.setEmployeeId(emp);
 				resolution.setSolution(ticketSolution);
 
 				resolutionDao.updateSolution(resolution);
+				
 
 				issueDAO.updateIssueStatus(issue);
 			}
@@ -246,7 +268,7 @@ public class CreateTicket {
 				while (i.hasNext()) {
 					Issue issues = (Issue) i.next();
 					System.out.println(issues.getId()+ "\t" +issues.getSubject() + "\t"
-							+ issues.getDescription() +"\t"+issues.getStatus());
+							+ issues.getDescription() +"\t"+issues.getDateResolved());
 				}
 				
 			}

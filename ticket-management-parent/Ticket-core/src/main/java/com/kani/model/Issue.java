@@ -10,6 +10,7 @@ public class Issue {
 	private int Id;
 	private User userId;
 	private Department deptId;
+	private Employee empId;
 	private String subject;
 	private String description;
 	private String priority;
