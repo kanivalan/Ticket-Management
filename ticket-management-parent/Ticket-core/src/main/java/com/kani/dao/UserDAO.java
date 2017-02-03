@@ -57,5 +57,26 @@ public class UserDAO implements DAO<User> {
 		Object[] params = { id };
 		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> convert(rs));
 	}
+	
+	public User findOne(String emailId){
+		String sql = "SELECT PASSWORD FROM USERS WHERE EMAIL_ID = ?";
+		Object[] params ={emailId}; 
+		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
+		User user = new User();
+		user.setPassword(rs.getString("PASSWORD"));
+		return user;
+		});
+		
+	}
+	public User findUserId(String emailId) {
+		String sql = "SELECT ID FROM USERS WHERE EMAIL_ID = ?";
+		Object[] params = { emailId };
+		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> {
+			User user=new User();
+			user.setId(rs.getInt("ID"));
+			return user;
+		
+		});
 
+}
 }

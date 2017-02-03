@@ -57,5 +57,16 @@ public class DepartmentDAO implements DAO<Department>  {
 		Object[] params = { id };
 		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> convert(rs));
 	}
+	
+	public Department findId(String department) {
+		String sql = "SELECT ID FROM DEPARTMENTS WHERE NAME = ?";
+		Object[] params = { department };
+		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) ->{ 
+			Department departments = new Department();
+			departments.setId(rs.getInt("ID"));
+			return departments;
+		
+		});
 
+}
 }

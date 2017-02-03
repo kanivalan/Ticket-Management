@@ -12,6 +12,7 @@ public class Issue {
 	private Department deptId;
 	private String subject;
 	private String description;
+	private String priority;
 	private LocalDate dateReported;
 	private LocalDate dateResolved;
 	private String status;

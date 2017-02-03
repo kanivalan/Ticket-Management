@@ -11,16 +11,16 @@ public class UserDAOTest {
 		UserDAO userDAO = new UserDAO();
 		
 		user.setId(1);
-		user.setName("kani");
+		user.setName("");
 		user.setEmailId("kani.valan.p@gmail.com");
 		user.setPassword("kani123");
 		
 		userDAO.save(user);
 		
-		List<User> list = userDAO.findAll();
-		for (User i : list) {
-			System.out.println(i.getId()+"\t"+i.getName()+"\t"+i.getEmailId()+"\t"+i.getPassword()+"\t"+i.isActive());
-		}
+//		List<User> list = userDAO.findAll();
+//		for (User i : list) {
+//			System.out.println(i.getId()+"\t"+i.getName()+"\t"+i.getEmailId()+"\t"+i.getPassword()+"\t"+i.isActive());
+//		}
 		
 		
 	}
