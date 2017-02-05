@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kani.model.Department;
 import com.kani.model.Employee;
+import com.kani.model.Role;
 import com.kani.util.ConnectionUtil;
 
 public class EmployeeDAO implements DAO<Employee>{
@@ -63,6 +64,69 @@ public class EmployeeDAO implements DAO<Employee>{
 		Object[] params = { id };
 		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> convert(rs));
 	}
+	
+	public Employee findEmpPassword(String emailId){
+		String sql = "SELECT PASSWORD FROM EMPLOYEES WHERE EMAIL_ID = ?";
+		Object[] params ={emailId}; 
+		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
+		Employee emp = new Employee();
+		emp.setPassword(rs.getString("PASSWORD"));
+		return emp;
+		});
+		
+	}
+	public Employee findEmpDeptId(String emailId,String password){
+		String sql = "SELECT DEPT_ID FROM EMPLOYEES WHERE EMAIL_ID = ? AND PASSWORD = ?";
+		Object[] params ={emailId,password}; 
+		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
+			
+		Department dept = new Department();
+		dept.setId(rs.getInt("DEPT_ID"));
+		
+		Employee emp = new Employee();
+		emp.setDeptId(dept);
+		
+		return emp;
+		});
+		
+	}
+	public Employee findDeptId(int empId){
+		String sql = "SELECT DEPT_ID FROM EMPLOYEES WHERE ID = ?";
+		Object[] params ={empId}; 
+		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
+			
+		Department dept = new Department();
+		dept.setId(rs.getInt("DEPT_ID"));
+		
+		Employee emp = new Employee();
+		emp.setDeptId(dept);
+		
+		return emp;
+		});
+		
+	}
+	
+	public Employee findEmployeeRoleId(String emailId,String password) {
+		String sql = "SELECT ROLE_ID FROM EMPLOYEES WHERE EMAIL_ID = ? AND PASSWORD=? AND ACTIVE=1";
+		Object[] params = {emailId,password};
+		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> {
+			Employee employee=new Employee();
+			Role role=new Role();
+			role.setId(rs.getInt("ROLE_ID"));
+			employee.setRoleId(role);
+			return employee;
+		});
+	}
 
+	public Employee findEmployeeId(String emailId,String password) {
+		String sql = "SELECT ID FROM EMPLOYEES WHERE EMAIL_ID = ? AND PASSWORD=? AND ACTIVE=1 ";
+		Object[] params = {emailId,password};
+		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> {
+			Employee employee = new Employee();
+			employee.setId(rs.getInt("ID"));
+			return employee;
+		});
+		
+	}
 	
 }

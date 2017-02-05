@@ -56,5 +56,15 @@ public class RoleDAO implements DAO<Role>{
 		return jdbctemplate.queryForObject(sql, (rs, rowNo) -> convert(rs));
 		
 	}
+	public Role findRoleId(String name) {
+		String sql = "SELECT ID FROM ROLES WHERE NAME = ? "; 
+		Object[] params = {name};
+		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
+			Role role = new Role();
+		role.setId(rs.getInt("ID"));
+		
+		return role;
+		});
+	}
 
 }

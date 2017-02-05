@@ -30,6 +30,20 @@ public class ResolutionDAO implements DAO<Resolution> {
 		jdbctemplate.update(sql, params);
 		
 	}
+	
+	public void updateEmployeeId(Resolution r) {
+		String sql = "UPDATE RESOLUTIONS SET EMPLOYEE_ID = ? WHERE ISSUE_ID = ? ";
+		Object[] params = {r.getEmployeeId().getId(),r.getIssueId().getId()};
+		jdbctemplate.update(sql, params);
+		
+	}
+	
+	public void updateSolution(Resolution r) {
+		String sql = "UPDATE RESOLUTIONS SET SOLUTION = ? WHERE ISSUE_ID = ? ";
+		Object[] params = {r.getSolution(),r.getIssueId().getId()};
+		jdbctemplate.update(sql, params);
+		
+	}
 
 	@Override
 	public void delete(int id) {

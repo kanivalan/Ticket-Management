@@ -6,8 +6,14 @@ import java.util.List;
 import com.kani.dao.DepartmentDAO;
 import com.kani.dao.IssueDAO;
 import com.kani.dao.UserDAO;
+import com.kani.exception.PersistenceException;
 import com.kani.model.Department;
 import com.kani.model.Issue;
+import com.kani.model.Resolution;
+import com.kani.dao.ResolutionDAO;
+import com.kani.dao.RoleDAO;
+import com.kani.model.Employee;
+import com.kani.dao.EmployeeDAO;
 import com.kani.model.User;
 
 public class CreateTicket {
@@ -15,11 +21,11 @@ public class CreateTicket {
 	IssueDAO issueDAO = new IssueDAO();
 
 	//create ticket method
- public void createTicket(String emailId, String password, String department, String subject, String description,String priority) {
+ public void createTicket(String emailId, String password, String department, String subject, String description,String priority) throws PersistenceException {
 		
 	 LoginDAO loginDao = new LoginDAO();
 	 
-		if (loginDao.login(emailId, password)) {
+		if (loginDao.userLogin(emailId, password)) {
 
 			Department dept = new Department();
 			DepartmentDAO deptDAO = new DepartmentDAO();
@@ -47,10 +53,10 @@ public class CreateTicket {
 	}
 
     //update Ticket Method
-	public void updateTicket(String emailId, String password, int issueId, String updateDescription) {
+	public void updateTicket(String emailId, String password, int issueId, String updateDescription) throws PersistenceException {
 
 		LoginDAO loginDao = new LoginDAO();
-		if (loginDao.login(emailId, password)) {
+		if (loginDao.userLogin(emailId, password)) {
 			User user = new User();
 			UserDAO userDao = new UserDAO();
 
@@ -77,9 +83,9 @@ public class CreateTicket {
 	}
 
 	//close ticket method
-	public void updateClose(String emailId, String password, int issueId) {
+	public void updateClose(String emailId, String password, int issueId) throws PersistenceException {
 		LoginDAO loginDao = new LoginDAO();
-		if (loginDao.login(emailId, password)) {
+		if (loginDao.userLogin(emailId, password)) {
 
 			User user = new User();
 			UserDAO userDao = new UserDAO();
@@ -99,9 +105,10 @@ public class CreateTicket {
 	}
 	
 	//User can view all ticket details
-	public void viewUserDetails(String emailId,String password) {
+	public void viewUserDetails(String emailId,String password) throws PersistenceException {
+		
 		LoginDAO loginDao = new LoginDAO();
-		if (loginDao.login(emailId, password)) {
+		if (loginDao.userLogin(emailId, password)) {
 
 			User user = new User();
 			UserDAO userDao = new UserDAO();
@@ -126,8 +133,130 @@ public class CreateTicket {
 			{
 				System.out.println("Incorrect user name or password");
 			}
+	}		
+	
+	
+	
+	//VERSION - 2 (ASSIGN EMPLOYEE TO THE TICKET )
+	public void assignTicketToEmployee (String emailId,String password, int issueId, int empId)throws PersistenceException {
+		LoginDAO loginDao = new LoginDAO();
+		try {
+			if (loginDao.employeeLogin(emailId, password)) {
+				Employee employee = new Employee();
+				employee.setEmailId(emailId);
+				employee.setPassword(password);
+				EmployeeDAO employeeDao = new EmployeeDAO();
+				
+				
+				int currentEmployeeDeptId = employeeDao.findEmpDeptId(emailId, password).getDeptId().getId();
+				int EmployeeDeptId = employeeDao.findDeptId(empId).getDeptId().getId();
+				
+				if (currentEmployeeDeptId == EmployeeDeptId) {
+
+					Resolution resolution = new Resolution();
+					ResolutionDAO solutionDao = new ResolutionDAO();
+
+					issue.setId(issueId);
+					resolution.setIssueId(issue);
+
+					employee.setId(empId);
+					resolution.setEmployeeId(employee);
+
+					solutionDao.updateEmployeeId(resolution);
+
+					issueDAO.updateStatus(issue);
+				} else {
+					System.out.println("Department dosent match");
+				}
 			
+		     } 
+		}catch (PersistenceException e) {
+			throw new PersistenceException("Login Failed", e);
+		}
+
 	}
+	
+	//update the solution status to resolved after employee will give a solution to user
+	public void ticketSolution(String emailId, String password, int issueId, String ticketSolution)throws PersistenceException {
+		LoginDAO loginDao = new LoginDAO();
+		try {
+			if (loginDao.employeeLogin(emailId, password)) {
+				Resolution resolution = new Resolution();
+				ResolutionDAO resolutionDao = new ResolutionDAO();
+				
+				issue.setId(issueId);
+				resolution.setIssueId(issue);
+				resolution.setSolution(ticketSolution);
+
+				resolutionDao.updateSolution(resolution);
+
+				issueDAO.updateIssueStatus(issue);
+			}
+		} catch (PersistenceException e) {
+			throw new PersistenceException("Login Failed", e);
+		}
+
+	}
+	
+	//Only Admin can delete tickets
+	public void deleteTicket(String emailId,String password,int issueId) throws PersistenceException {
+		LoginDAO loginDao = new LoginDAO();
+		try {
+			if (loginDao.employeeLogin(emailId, password)) {
+				Employee employee=new Employee();
+				EmployeeDAO employeeDao=new EmployeeDAO();
+				employee.setEmailId(emailId);
+				employee.setPassword(password);
+				int employeeRoleId=employeeDao.findEmployeeRoleId(emailId, password).getRoleId().getId();
+				
+				
+				RoleDAO roleDao=new RoleDAO();
+				int adminRoleId=roleDao.findRoleId("admin").getId();
+
+				if(employeeRoleId==adminRoleId){
+					ResolutionDAO solutionDao=new ResolutionDAO();
+					solutionDao.delete(issueId);
+					issueDAO.delete(issueId);
+				}
+				else{
+					System.out.println("You dont have enough rights to delete");
+				}
+				
+				
+			}
+
+	}catch (PersistenceException e) {
+		throw new PersistenceException("Login Failed", e);
+	}
+	}
+
+	public void findEmployeeTickets(String emailId, String password) throws PersistenceException{
+		LoginDAO loginDao = new LoginDAO();
+		try {
+			if (loginDao.employeeLogin(emailId, password)) {
+				Employee employee=new Employee();
+				EmployeeDAO employeeDao=new EmployeeDAO();
+				employee.setEmailId(emailId);
+				employee.setPassword(password);
+				int employeeId=employeeDao.findEmployeeId(emailId, password).getId();
+				
+				issueDAO.viewEmployeeTicket(employeeId);
+				List<Issue> list = issueDAO.viewEmployeeTicket(employeeId);
+				Iterator<Issue> i = list.iterator();
+				while (i.hasNext()) {
+					Issue issues = (Issue) i.next();
+					System.out.println(issues.getId()+ "\t" +issues.getSubject() + "\t"
+							+ issues.getDescription() +"\t"+issues.getStatus());
+				}
+				
+			}
+		
+	}catch (PersistenceException e) {
+		throw new PersistenceException("Login Failed", e);
+	}
+		
 }
+}
+
 
 

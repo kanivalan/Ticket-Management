@@ -1,17 +1,24 @@
 package com.kani.functionDAO;
 
+import com.kani.dao.EmployeeDAO;
 import com.kani.dao.UserDAO;
+import com.kani.exception.PersistenceException;
+import com.kani.model.Employee;
 
 
 public class LoginDAO {
 
 	UserDAO userDAO = new UserDAO();
-	public boolean login(String emailId,String password) {
-		String s = userDAO.findOne(emailId).getPassword();
-		if (s.equals(password)) 
+	Employee emp = new Employee();
+	EmployeeDAO empDAO = new EmployeeDAO(); 
+	
+	public boolean userLogin(String emailId,String password)throws PersistenceException {
+		userDAO.findOne(emailId).getPassword(); 
 			return true;
-		return false;
 	}
-
+	public boolean employeeLogin(String emailId,String password)throws PersistenceException {
+		empDAO.findEmpPassword(emailId).getPassword(); 
+			return true;
+	}
 	
 }

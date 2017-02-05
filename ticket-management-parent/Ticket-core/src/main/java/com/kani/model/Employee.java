@@ -9,6 +9,7 @@ public class Employee {
 	private String Name;
 	private String emailId;
 	private String password;
+	private Role roleId;
 	private Department deptId;
 	private boolean active;
 	

@@ -102,5 +102,25 @@ public class IssueDAO implements DAO<Issue> {
 		Object[] params = { userId };
 		return jdbctemplate.query(sql, params, (rs, rowNo) -> convert(rs));
 	}
+	
+	public void updateStatus(Issue issue) {
+		String sql = "UPDATE ISSUES SET STATUS='In Progress' WHERE ID=?";
+		Object[] params = { issue.getId() };
+		int rows = jdbctemplate.update(sql, params);
+		System.out.println(rows);
+
+	}
+	public void updateIssueStatus(Issue issue) {
+		String sql = "UPDATE ISSUES SET STATUS='Resolved',DATE_RESOLVED=NOW()  WHERE ID=?";
+		Object[] params = { issue.getId() };
+		int rows = jdbctemplate.update(sql, params);
+		System.out.println(rows);
+
+	}
+	public List<Issue> viewEmployeeTicket(int empId) {
+		String sql = "SELECT ID,USER_ID,DEPARTMENT_ID,SUBJECT,DESCRIPTION,DATE_REPORTED FROM ISSUES WHERE EMPLOYEE_ID = ? " ;
+		Object[] params = { empId };
+		return jdbctemplate.query(sql, params, (rs, rowNo) -> convert(rs));
+	}
 
 }
