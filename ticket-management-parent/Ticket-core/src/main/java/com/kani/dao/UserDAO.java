@@ -4,10 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.kani.exception.PersistenceException;
 import com.kani.model.User;
 import com.kani.util.ConnectionUtil;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 
 public class UserDAO implements DAO<User> {
 
@@ -58,14 +60,19 @@ public class UserDAO implements DAO<User> {
 		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> convert(rs));
 	}
 	
-	public User findOne(String emailId){
-		String sql = "SELECT PASSWORD FROM USERS WHERE EMAIL_ID = ?";
-		Object[] params ={emailId}; 
+	public User findOne(String emailId,String password) throws PersistenceException
+	{
+		try {
+		String sql = "SELECT ID FROM USERS WHERE EMAIL_ID = ?  AND PASSWORD = ?";
+		Object[] params ={emailId,password}; 
 		return jdbctemplate.queryForObject(sql, params,(rs, rowNo) -> {
 		User user = new User();
-		user.setPassword(rs.getString("PASSWORD"));
+		user.getId();
 		return user;
 		});
+		} catch (EmptyResultDataAccessException e) {
+			throw new PersistenceException ("invalid emailId or password" , e);
+		}
 		
 	}
 	public User findUserId(String emailId) {

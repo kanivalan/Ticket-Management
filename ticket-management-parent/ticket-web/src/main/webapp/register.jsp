@@ -24,13 +24,13 @@
     </div>
     
     
-    <form class="email-login">
+    <form class="email-login" action='/tickets/login' method="get">
     <h4 style>User Login </h4>
       <div class="u-form-group">
         <input type="email"  name="EmailId" placeholder="Email Id"/>
       </div>
       <div class="u-form-group">
-        <input type="password" name ="EmailId" placeholder="Password"/>
+        <input type="password" name ="Password" placeholder="Password"/>
       </div>
       <div class="u-form-group">
         <button>Log in</button>
@@ -60,6 +60,7 @@
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <script src="js/index.js"index.js"></script>
+	  <script src="js/bootstrap.min.js"</script>
 
 </body>
 </html>

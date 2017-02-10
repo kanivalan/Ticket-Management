@@ -5,22 +5,19 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <title>Login, Register form</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/bootstrap.min.css">
-
-  
 </head>
 
 <body>
+
   <br><br><br><br><br>
   <div class="login-box">
     <div class="lb-header">
-      <a href="#" class="active" id="login-box-link">Login</a>
+      <a href="#" class="active" id="login-box-link">Create Ticket</a>
     </div>
     
     
@@ -39,7 +36,7 @@
         <input type="text"  name="Description" placeholder="Description"/>
       </div>
       <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Tutorials
+    <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Department
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li><a href="#">Normal</a></li>
@@ -47,15 +44,27 @@
       <li class="active"><a href="#">Active</a></li>
       <li><a href="#">Normal</a></li>
     </ul>
+  </div><br>
+  <div class="radio-inline">
+  <input type="radio" <label><input type="radio" name="radio">low</label>
   </div>
-      <div class="u-form-group">
-        <button>Log in</button>
+  <div class="radio-inline">
+  <input type="radio" <label><input type="radio" name="radio">medium</label>
+  </div>
+  <div class="radio-inline">
+  <input type="radio" <label><input type="radio" name="radio">high</label>
+  </div>
+  <br><br>
+       <div class="u-form-group">
+        <button type="submit">create ticket</button>
       </div>
+      
     </form>
   </div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  
+  
+  </body>
+<script src="js/bootstrap.min.js"</script>
+<script type="text/javascript" src=""></script>
 
-    <script src="js/index.js"index.js"></script>
-
-</body>
 </html>

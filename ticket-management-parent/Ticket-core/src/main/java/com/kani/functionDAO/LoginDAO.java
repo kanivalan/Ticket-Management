@@ -13,7 +13,9 @@ public class LoginDAO {
 	EmployeeDAO empDAO = new EmployeeDAO(); 
 	
 	public boolean userLogin(String emailId,String password)throws PersistenceException {
-		userDAO.findOne(emailId).getPassword(); 
+		System.out.println(emailId);
+		userDAO.findOne(emailId,password).getId(); 
+	
 			return true;
 	}
 	public boolean employeeLogin(String emailId,String password)throws PersistenceException {

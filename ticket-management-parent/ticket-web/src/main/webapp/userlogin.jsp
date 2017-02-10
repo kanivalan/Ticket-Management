@@ -1,0 +1,92 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Ticket Management</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+<link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--  Material Dashboard CSS    -->
+    <link href="css/material-dashboard.css" rel="stylesheet"/>
+    
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	    <div class="main-panel">
+	        <div class="content">
+	            <div class="container-fluid">
+						<div class="col-md-4 col-md-offset-3">
+    						<div class="card card-profile">
+    							<div class="card-avatar">
+    								<a href="#pablo">
+    									<img class="img" src="img/user_icon.svg" />
+    								</a>
+    							</div>
+
+    							<div class="content">
+    								<h5 class="card-title">User Login</h5>
+    								 <form action='/tickets/login' method="get">
+	                                    
+	                                        <div class="col-md-11">
+												<div class="form-group label-floating">
+													<label class="control-label"style="
+    height: 100%;
+    left: 10px">Email address</label>
+													<input type="text" name="EmailId" class="form-control" >
+												</div>
+	                                        </div>
+	                                        <div class="col-md-11">
+												<div class="form-group label-floating">
+													<label class="control-label"style="
+    height: 100%;
+    left: 10px">Password</label>
+													<input type="password" name="Password" class="form-control" >
+												</div>
+	                                        </div>
+	                                    </div>	                                   	                                    
+	                                    <div class="clearfix"></div>
+	                                
+                                    <a href = "userregister.jsp"  style="margin-left: 120px;"><strong>Create an account </strong></a><br>
+    								<button type ="submit" class ="btn btn-danger">login</button>
+    							</div>
+    						</div>
+		    			</div>
+	                </div></form>
+	            
+	        
+
+	        <footer class="footer">
+	            <div class="container-fluid">
+	                
+	                <p style="margin-left: 380px;">
+	               <script>document.write(new Date().getFullYear())</script>Ticket Management</p>	                
+	            </div>
+	        </footer>
+	    </div>
+	</div>
+
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
+	<script src="js/material-dashboard.js" type="text/javascript"></script>
+	<!-- Material Dashboard javascript methods -->
+	<script src="js/material.min.js"></script>
+
+
+</html>

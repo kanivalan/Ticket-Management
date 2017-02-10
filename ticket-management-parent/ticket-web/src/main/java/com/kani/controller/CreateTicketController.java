@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kani.exception.PersistenceException;
 import com.kani.exception.ServiceException;
+import com.kani.functionDAO.LoginDAO;
 import com.kani.model.User;
 import com.kani.service.*;
 
@@ -49,6 +52,25 @@ public class CreateTicketController {
 		}
 
 	}
+	
+	@GetMapping("/login")
+	public String userLogin(@RequestParam("EmailId") String emailId,@RequestParam("Password") String password) throws ServiceException {
+		System.out.println("TicketController-> login - emailid=" + emailId  + ",password:" + password);
+		LoginDAO loginDAO = new LoginDAO();
+		try {
+			loginDAO.userLogin(emailId, password);
+			return "redirect:../index.jsp";
+
+		} catch ( PersistenceException e) {
+			
+			LOGGER.log(Level.SEVERE, "Registration Failed Exception Occured!!", e);
+			return "register.jsp";
+			
+		}
+
+	}
+
+	
 	
 	@GetMapping("/create_ticket")
 	public String createTicket(@RequestParam("EmailId") String emailId,

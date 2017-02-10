@@ -1,6 +1,7 @@
 package com.kani.service;
 
 import com.kani.functionDAO.CreateTicket;
+import com.kani.functionDAO.LoginDAO;
 import com.kani.functionDAO.RegistrationDAO;
 import com.kani.exception.PersistenceException;
 import com.kani.exception.ServiceException;
@@ -9,6 +10,7 @@ import com.kani.Validator.AssignTicketValidator;
 import com.kani.Validator.CloseTicketValidator;
 import com.kani.Validator.CreateTicketValidator;
 import com.kani.Validator.DeleteValidator;
+import com.kani.Validator.LoginValidator;
 import com.kani.Validator.RegistrationValidator;
 import com.kani.Validator.TicketSolutionValidator;
 import com.kani.Validator.UpdateTicketValidator;
@@ -126,6 +128,17 @@ public void findEmployeeTickets(String emailId, String password) throws ServiceE
 		createTicketDao.findEmployeeTickets(emailId,password);
 	} catch (ValidatorException | PersistenceException e) {
 		throw new ServiceException("Cannot Create Ticket Solution", e);
+
+	}
+	
+}
+public void userLogin(String emailId, String password) throws ServiceException {
+	LoginDAO loginDAO = new LoginDAO();
+	try {
+		System.out.println(emailId);
+	loginDAO.userLogin(emailId, password);
+	} catch ( PersistenceException e) {
+		throw new ServiceException("invalid details", e);
 
 	}
 	
