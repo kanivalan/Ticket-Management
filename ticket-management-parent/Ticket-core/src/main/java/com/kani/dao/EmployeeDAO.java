@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.kani.exception.PersistenceException;
 import com.kani.model.Department;
 import com.kani.model.Employee;
 import com.kani.model.Role;
@@ -118,7 +120,8 @@ public class EmployeeDAO implements DAO<Employee>{
 		});
 	}
 
-	public Employee findEmployeeId(String emailId,String password) {
+	public Employee findEmployeeId(String emailId,String password) throws PersistenceException {
+		try {
 		String sql = "SELECT ID FROM EMPLOYEES WHERE EMAIL_ID = ? AND PASSWORD=? AND ACTIVE=1 ";
 		Object[] params = {emailId,password};
 		return jdbctemplate.queryForObject(sql, params, (rs, rowNo) -> {
@@ -128,5 +131,8 @@ public class EmployeeDAO implements DAO<Employee>{
 		});
 		
 	}
-	
+	 catch (EmptyResultDataAccessException e) {
+			throw new PersistenceException ("invalid emailId or password" , e);
+		}
+	}
 }

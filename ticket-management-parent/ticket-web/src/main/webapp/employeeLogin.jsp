@@ -34,14 +34,13 @@
  <div class="navbar-left">
     <img src="img/logo.svg" alt="" width="130" height="80" class="img-responsive"/>
     </div>
-    
 </nav>
 	    <div class="main-panel">
 	        <div class="content">
 	            <div class="container-fluid">
                 <div class="row">
-                 <div class="col-md-6">
- <img src="img/image.jpg" alt="" width="600	" height="350" class="img-responsive"/>
+                 <div class="col-lg-6">
+ <img src="img/employee.jpg" alt="" width="800" height="650" class="img-responsive"/>
  </div>
 						<div class="col-md-4">           
     						<div class="card card-profile">
@@ -52,8 +51,8 @@
     							</div>
 
     							<div class="content">
-    								<h5 class="card-title">User Login</h5>
-    								 <form action='/tickets/login' method="get">
+    								<h5 class="card-title">Employee Login</h5>
+    								 <form action='/tickets/employeeLogin' method="get">
 	                                    
 	                                        <div class="col-md-11">
 												<div class="form-group label-floating">

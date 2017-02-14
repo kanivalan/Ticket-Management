@@ -11,8 +11,9 @@ public class CreateTicketValidator {
 		
 		validator.isInvalid(emailId, "emailId");
 		validator.isInvalid(password, "password");
-		validator.isInvalid(description, "description,");
+		validator.isInvalid(department, "department");		
 		validator.isInvalid(subject, "subject");
+		validator.isInvalid(description, "description,");
 		validator.isInvalid(priority, "priority");
 	}
 public void findUserDetails(String emailId,String password) throws ValidatorException{

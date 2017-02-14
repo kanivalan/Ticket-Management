@@ -19,7 +19,7 @@ public class LoginDAO {
 			return true;
 	}
 	public boolean employeeLogin(String emailId,String password)throws PersistenceException {
-		empDAO.findEmpPassword(emailId).getPassword(); 
+		empDAO.findEmployeeId(emailId, password).getId(); 
 			return true;
 	}
 	

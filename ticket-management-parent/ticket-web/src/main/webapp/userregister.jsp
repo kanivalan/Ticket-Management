@@ -25,15 +25,27 @@
 </head>
 
 <body>
+
+
+<nav class="navbar navbar navbar-fixed-top">
+<div class="container-fluid">
+<header><div class="navbar-header">								
+ <div class="navbar-left">
+    <img src="img/logo.svg" alt="" width="130" height="80" class="img-responsive"/>
+    </div>
+</nav>
 	    <div class="main-panel">
 	        <div class="content">
 	            <div class="container-fluid">
-						<div class="col-md-5 col-md-offset-3">
-    						<div class="card card-profile" style="
-    margin-top: 0px;">
+                <div class="row">
+                 <div class="col-md-6">
+ <img src="img/image.jpg" alt="" width="600	" height="350" class="img-responsive"/>
+ </div>
+						<div class="col-md-4">           
+    						<div class="card card-profile">
     							<div class="card-avatar">
     								<a href="#pablo">
-    									<img class="img" src="img/user_icon.svg" />
+    									<img class="img" src="img/user_icon.svg"  />
     								</a>
     							</div>
 

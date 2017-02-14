@@ -50,60 +50,39 @@ Connection connection =
 	            <div class="container-fluid">
 						<div class="col-md-10">
     <div class="card">
-	                    <div class="card-header" data-background-color="green">
-	                        <h4 class="title">Create Your Ticket</h4>
-	                        <p class="category">Ticket Management is for serve students anytime anywhere,So create your ticket</p>
+	                    <div class="card-header" data-background-color="orange">
+	                        <h4 class="title">Close Your Ticket</h4>
+	                        <p class="category">If you statisfied with our answer,You can close your ticket, and we will automatically update your ticket status to<strong> close</strong></p>
 	                    </div>
 	                    <div class="card-content">
 	                        <div class="row">
-    								 <form action="/tickets/create_ticket" method="GET" >
+    								 <form action="/tickets/update_close" method="GET" >
 	                                    
 	                                        <div class="col-md-11">
-												<div class="form-group label-floating form-success">
+												<div class="form-group  label-floating form-warning">
+                                                <span class="form-control-feedback glyphicon glyphicon-user"></span>
 													<label class="control-label">Email address</label>
-													<input type="email" class="form-control" name="EmailId" />
-                                                    <span class="form-control-feedback glyphicon glyphicon-user"></span>
+													<input type="email" class="form-control" name="EmailId" />                                                    
 												</div>
 	                                        </div>
 	                                        <div class="col-md-11">
-												<div class="form-group label-floating form-success">
+												<div class="form-group label-floating form-warning">
 													<label class="control-label"style="height: 100%;left: 10px">Password</label>
 													<input type="password" class="form-control" name="Password" >
 												</div>
-	                                        </div>
-                                               <div class="col-md-11">
-												<div class="form-group label-floating form-success">
-													<label class="control-label"style="height: 100%;left: 10px">Subject</label>
-													<input type="text" class="form-control" name="Subject" >
-												</div>
-	                                        </div>
-                                            <div class="row">
-	                                        <div class="col-md-11">
-	                                            <div class="form-group">
-	                                                <label style="margin-right: 650px;">Description</label>
-													<div class="form-group label-floating form-success">
-									    				<label class="control-label" style="margin-left:0px;"> Describe your ticket query(min 30 words)</label>
-								    					<textarea class="form-control" rows="5" name="Description"></textarea>
-		                        					</div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    </div>	                                   	                                    
-	                                    <div class="clearfix"></div>
-	                                
-	    <select name="Department" class="btn btn-success btn-xs" required>
-        <%  while(resultset.next()){ %>
-            <option><%= resultset.getString(1)%></option>
-         
-        <% } %>
-        </select> <br>
-	    <label class="control-label"style="height: 100%;left: 10px">Priority</label><br>
-          <input type="radio" name="Priority" value="High"> High<br>
- 					 <input type="radio" name="Priority" value="Medium"> Medium<br>
- 					 <input type="radio" name="Priority" value="Low"> Low <br>
+	                                        </div> 
+                                            <div class="col-md-11">
+												<div class="form-group label-floating form-warning">
+													<label class="control-label"style="height: 100%;left: 10px">Issue Id</label>
+													<input type="number" class="form-control" name="IssueId" >
+												</div>	                                        </div>                                                                                    
+	                                    </div>	                                   	       	        	   
                      <div class="col-md-offset-5">
-		<button type="submit" class="btn btn-danger">Create Ticket</button></div>
+		<button type="submit" class="btn btn-danger">Close Ticket</button></div>
 	</form>
+    
+ 
+
 	${ERROR}
 	
 	<%
@@ -114,6 +93,7 @@ Connection connection =
              out.println("wrong entry"+e);
         }
 %>
+  
 </body>
 <!--   Core JS Files   -->
 	<script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>

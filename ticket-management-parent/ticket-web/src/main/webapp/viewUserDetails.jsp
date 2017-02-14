@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,6 +9,7 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
 	<link rel="icon" type="image/png" href="../assets/img/favicon.png" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 
 	<title>Ticket Management</title>
 
@@ -34,14 +37,13 @@
  <div class="navbar-left">
     <img src="img/logo.svg" alt="" width="130" height="80" class="img-responsive"/>
     </div>
-    
 </nav>
 	    <div class="main-panel">
 	        <div class="content">
 	            <div class="container-fluid">
                 <div class="row">
                  <div class="col-md-6">
- <img src="img/image.jpg" alt="" width="600	" height="350" class="img-responsive"/>
+ <img src="img/viewtickets.png" alt="" width="600	" height="350" class="img-responsive"/>
  </div>
 						<div class="col-md-4">           
     						<div class="card card-profile">
@@ -52,8 +54,8 @@
     							</div>
 
     							<div class="content">
-    								<h5 class="card-title">User Login</h5>
-    								 <form action='/tickets/login' method="get">
+    								<h5 class="card-title">View User Tickets</h5>
+    								 <form action='/tickets/find_user_details' method="get">
 	                                    
 	                                        <div class="col-md-11">
 												<div class="form-group label-floating">
@@ -79,11 +81,11 @@
     							</div>
     						</div>
 		    			</div>
-	                </div></form>
+	                </div>
 	            
-	        
-
-	        <footer class="footer">
+	    
+	</div>
+     <footer class="footer">
 	            <div class="container-fluid">
 	                
 	                <p style="margin-left: 380px;">
@@ -91,7 +93,7 @@
 	            </div>
 	        </footer>
 	    </div>
-	</div>
+	</div></form>
 
 </body>
 

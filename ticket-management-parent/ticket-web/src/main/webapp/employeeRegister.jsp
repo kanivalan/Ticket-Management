@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,24 +22,24 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-    
 </head>
 
 <body>
+
+
 <nav class="navbar navbar navbar-fixed-top">
 <div class="container-fluid">
 <header><div class="navbar-header">								
  <div class="navbar-left">
     <img src="img/logo.svg" alt="" width="130" height="80" class="img-responsive"/>
     </div>
-    
 </nav>
 	    <div class="main-panel">
 	        <div class="content">
 	            <div class="container-fluid">
                 <div class="row">
-                 <div class="col-md-6">
- <img src="img/image.jpg" alt="" width="600	" height="350" class="img-responsive"/>
+                 <div class="col-md-6" style="height:500px;">
+ <img src="img/register.jpg" alt="" width="600	" height="1250" class="img-responsive"/>
  </div>
 						<div class="col-md-4">           
     						<div class="card card-profile">
@@ -52,34 +50,38 @@
     							</div>
 
     							<div class="content">
-    								<h5 class="card-title">User Login</h5>
-    								 <form action='/tickets/login' method="get">
+    								<h5 class="card-title">Employee Registration</h5>
+    								 <form >
 	                                    
 	                                        <div class="col-md-11">
 												<div class="form-group label-floating">
 													<label class="control-label"style="
     height: 100%;
-    left: 10px">Email address</label>
-													<input type="text" name="EmailId" class="form-control" >
+    left: 10px">Username</label>
+													<input type="text" class="form-control" >
 												</div>
 	                                        </div>
 	                                        <div class="col-md-11">
 												<div class="form-group label-floating">
-													<label class="control-label"style="
-    height: 100%;
-    left: 10px">Password</label>
-													<input type="password" name="Password" class="form-control" >
+													<label class="control-label"style="height: 100%;left: 10px">Email address</label>
+													<input type="email" class="form-control" >
+												</div>
+	                                        </div>
+                                               <div class="col-md-11">
+												<div class="form-group label-floating">
+													<label class="control-label"style="height: 100%;left: 10px">Password</label>
+													<input type="password" class="form-control" >
 												</div>
 	                                        </div>
 	                                    </div>	                                   	                                    
 	                                    <div class="clearfix"></div>
-	                                
-                                    <a href = "userregister.jsp"  style="margin-left: 120px; color:grey;">Create an account</a><br>
-    								<button type ="submit" class ="btn btn-danger btn-round">login</button>
+	                                </form>
+                               <div class=style="margin-left:200px">   Already have an account ? <a href ="employeeLogin.jsp"><strong>login in</strong></a><br>
+    								<a href="" class="btn btn-danger btn-round">Register</a></div>
     							</div>
     						</div>
 		    			</div>
-	                </div></form>
+	                </div>
 	            
 	        
 
@@ -87,7 +89,7 @@
 	            <div class="container-fluid">
 	                
 	                <p style="margin-left: 380px;">
-	               <script>document.write(new Date().getFullYear())</script> Ticket Management</p>	                
+	               <script>document.write(new Date().getFullYear())</script>Ticket Management</p>	                
 	            </div>
 	        </footer>
 	    </div>

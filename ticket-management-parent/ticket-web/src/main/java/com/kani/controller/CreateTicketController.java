@@ -1,17 +1,21 @@
 package com.kani.controller;
 
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kani.dao.UserDAO;
 import com.kani.exception.PersistenceException;
 import com.kani.exception.ServiceException;
 import com.kani.functionDAO.LoginDAO;
+import com.kani.model.Issue;
 import com.kani.model.User;
 import com.kani.service.*;
 
@@ -59,7 +63,7 @@ public class CreateTicketController {
 		LoginDAO loginDAO = new LoginDAO();
 		try {
 			loginDAO.userLogin(emailId, password);
-			return "redirect:../index.jsp";
+			return "redirect:../ticket.jsp";
 
 		} catch ( PersistenceException e) {
 			
@@ -70,6 +74,22 @@ public class CreateTicketController {
 
 	}
 
+	@GetMapping("/employeeLogin")
+	public String employeeLogin(@RequestParam("EmailId") String emailId,@RequestParam("Password") String password) throws ServiceException {
+		System.out.println("TicketController-> login - emailid=" + emailId  + ",password:" + password);
+		LoginDAO loginDAO = new LoginDAO();
+		try {
+			loginDAO.employeeLogin(emailId, password);
+			return "redirect:../employeePage.jsp";
+
+		} catch ( PersistenceException e) {
+			
+			LOGGER.log(Level.SEVERE, "Registration Failed Exception Occured!!", e);
+			return "register.jsp";
+			
+		}
+
+	}
 	
 	
 	@GetMapping("/create_ticket")
@@ -85,7 +105,7 @@ public class CreateTicketController {
 		System.out.println(user);
 		try {
 			ticketService.createTicket(emailId, password, subject, description, department, priority);
-			return "redirect:../ticket_create_sucess.jsp";
+			return "redirect:../login.jsp";
 
 		} catch (ServiceException e) {
 			
@@ -106,7 +126,7 @@ public class CreateTicketController {
 
 		try {
 			createTicketService.updateTicket(emailId, password, issueId, updateDescription);
-			return "redirect:../description_updated.jsp";
+			return "redirect:../ticket.jsp";
 
 		} catch (ServiceException e) {
 
@@ -139,35 +159,34 @@ public class CreateTicketController {
 	}
 
 	@GetMapping("/find_user_details")
-	public String findUserDetails(@RequestParam("EmailId") String emailId, @RequestParam("Password") String password)
+	public String findUserDetails(@RequestParam("EmailId") String emailId, @RequestParam("Password") String password,ModelMap map)
 			throws ServiceException {
 
-		System.out.println("TicketController-> updateTicket- name:EmailId" + emailId + ",Password:" + password);
+		System.out.println("TicketController-> viewTicket- name:EmailId" + emailId + ",Password:" + password);
 		TicketService createTicketService = new TicketService();
+	try{
+		List<Issue> i=createTicketService.findUserDetails(emailId,password);
+		map.addAttribute("list", i);
+		return "../viewUserdetailTable.jsp";
+	}
+	catch (ServiceException e) {
+		map.addAttribute("ERROR", e.getMessage());
+		LOGGER.log(Level.SEVERE, "Assigning Employee  Ticket Exception Occured!!", e);
+		return "../find_user_details.jsp";
 
-		try {
-			createTicketService.findUserDetails(emailId, password);
-			return "redirect:../user_details.jsp";
-
-		} catch (ServiceException e) {
-
-			LOGGER.log(Level.SEVERE, "Viewing  Ticket Exception Occured!!", e);
-			return "find_user_details.jsp";
-
-		}
-
+	}
 	}
 
 	@GetMapping("/assign_employee")
 	public String assignEmployee(@RequestParam("EmailId") String emailId,@RequestParam("Password") String password, @RequestParam("IssueId") int issueId, @RequestParam("EmployeeId") int employeeId)
 			throws ServiceException {
 
-		System.out.println("TicketController-> updateTicket- name:EmailId" + emailId + ",Password:" + password+",IssueId:0"+issueId+",EmployeeId:"+employeeId);
+		System.out.println("TicketController-> updateTicket- name:EmailId" + emailId + ",Password:" + password+",IssueId:"+issueId+",EmployeeId:"+employeeId);
 		TicketService createTicketService = new TicketService();
 
 		try {
 			createTicketService.assignTicketToEmployee(emailId, password, issueId, employeeId);
-			return "redirect:../employee_assigned.jsp";
+			return "redirect:../employeeLogin.jsp";
 
 		} catch (ServiceException e) {
 
@@ -187,7 +206,7 @@ public class CreateTicketController {
 
 		try {
 			createTicketService.ticketSolution(emailId, password, issueId, ticketSolution);
-			return "redirect:../solution_given.jsp";
+			return "redirect:../employeePage.jsp";
 
 		} catch (ServiceException e) {
 
@@ -199,24 +218,27 @@ public class CreateTicketController {
 	}
 
 	@GetMapping("/find_employee_tickets")
-	public String findEmployeeTickets(@RequestParam("EmailId") String emailId, @RequestParam("Password") String password)
+	public String findEmployeeTickets(@RequestParam("EmailId") String emailId, @RequestParam("Password") String password,ModelMap map)
 			throws ServiceException {
 
 		System.out.println("TicketController-> updateTicket- name:EmailId" + emailId + ",Password:" + password);
 		TicketService createTicketService = new TicketService();
 
-		try {
-			createTicketService.findEmployeeTickets(emailId, password);
-			return "redirect:../find_employee_tickets_found.jsp";
-
-		} catch (ServiceException e) {
-
+		try{
+						
+			List<Issue> i= createTicketService.findEmployeeTickets(emailId, password);
+			map.addAttribute("list", i);
+			return "../viewEmployeedetailtable.jsp";
+		}
+ catch (ServiceException e) {
+			map.addAttribute("ERROR", e.getMessage());
 			LOGGER.log(Level.SEVERE, "Viewing  Ticket Exception Occured!!", e);
-			return "find_employee_tickets.jsp";
+			return "../find_employee_tickets.jsp";
+ }
 
 		}
 
-	}
+
 	@GetMapping("/delete_ticket")
 	public String deleteTicket(@RequestParam("EmailId") String emailId,@RequestParam("Password") String password, @RequestParam("IssueId") int issueId)
 			throws ServiceException {

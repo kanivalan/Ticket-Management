@@ -104,9 +104,22 @@ public class IssueDAO implements DAO<Issue> {
 	
 	// USER VIEW HIS/HER TICKETS
 	public List<Issue> viewMyTicket(int userId) {
-		String sql = "SELECT ID,USER_ID,DEPARTMENT_ID,SUBJECT,DESCRIPTION,DATE_REPORTED,DATE_RESOLVED FROM ISSUES WHERE USER_ID = ?";
+		String sql = "SELECT ID,USER_ID,SUBJECT,DESCRIPTION,PRIORITY,STATUS FROM ISSUES WHERE USER_ID = ?";
 		Object[] params = { userId };
-		return jdbctemplate.query(sql, params, (rs, rowNo) -> convert(rs));
+		return jdbctemplate.query(sql, params, (rs, rowNo) -> {
+			Issue issue=new Issue();
+			User user = new User();
+			user.setId(rs.getInt("ID"));
+							
+			issue.setId(rs.getInt("ID"));
+			issue.setUserId(user);			
+			issue.setSubject(rs.getString("SUBJECT"));
+			issue.setDescription(rs.getString("DESCRIPTION"));
+			issue.setPriority(rs.getString("PRIORITY"));
+		    issue.setStatus(rs.getString("STATUS"));		    
+			return issue;
+		
+		});
 	}
 	
 	//AFTER USER CREATE AN TICKET, STATUS UPDATED TO "IN PROGRESS"
